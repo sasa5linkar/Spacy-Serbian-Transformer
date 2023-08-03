@@ -1,0 +1,25 @@
+ <body>
+ <div type="chapter" xml:id="SRP19040_C13">
+<head><s>13.</s></head>
+<p><s>Toga jutra bio je u age  Džinića   Šaćir .</s><s> U ranu zoru sišao s Rudnika i pošao u Valjevo, <pb n="245"/> da se sastane s  Fočić-Mehmed -agom, te da mu javi, kako se sa one strane Rudnika opaža u narodu sumnjivo komešanje.</s></p>
+<p><s>Njih dvoje sedeli su u odžakliji, srkali kafu i dosta zabrinuto razgovarali.</s><s>  Šaćir  je od onoga doba nešto potamneo u licu, a po nemirnome pogledu moglo se opaziti, da mu se u duši nije stišalo.</s><s> Razgovaraju tako, kad tek odjedared začuše neobičnu tutnjavu uz drvene stepenice, a malo zatim otvoriše se vrata zjapom i u odžakliju upade  Rupić , usplahiren i čisto kao smušen.</s></p>
+<p><s>— Ovde su! — viknu, a oči mu krvnički zveraju.</s></p>
+<p><s>— Ko?</s></p>
+<p><s>— Svi!</s><s> Đera, Gagićevi, svi!</s></p>
+<p><s> Šaćir  skoči kao pomaman i stade pred  Rupića .</s></p>
+<p><s>— Gdje su, kneže!</s></p>
+<p><s>— U manastiru!</s><s> Sve ćeš ih žive pohvatati.</s></p>
+<p><s>— Konje!</s><s> Svi momci! — zagrme  Šaćir , dohvati oružje i strča niza stepenice.</s></p>
+<p><s>Malo zatim letelo je dvadeset hatlija u najvećom trku manastirskome zabranu.</s></p>
+<p><s>Međutim, dokle se ovo u hanu dešavalo.</s><s>  Hadži-Đera  je dovršivao molitvu.</s><s> Baš kada je uhvatio rukom za epitrahilj, da ga skine, trže ga neobični topot i alakanje.</s></p>
+<p><s>— Turci! — pomisli  Hadži-Đera  i htede da izađe. <pb n="246"/></s></p>
+<p><s>Ali već beše dockan.</s><s> Gomila Turaka uletela je u crkvu.</s></p>
+<p><s>Hadži-Đera se okrete časnoj trpezi i raspeću, prekrsti se, celiva i duboko se pokloni.</s></p>
+<p><s>— Gospode!</s><s> Primi slugu svojega i ukrepi narod moj! — uzviknu glasno, a onda se, onako pod epitrahiljem, okrete  Šaćiru , koji s golom sabljom stupi na vrata.</s></p>
+<p><s>— Koga tražite, sotone?</s></p>
+<p><s>— Tebe, dervišu! — ciknu  Šaćir , a zakrvavljene oči čisto se valjaju od silna besnila.</s></p>
+<milestone unit="subSection"/>
+<p><s>— Pseto od derviša! — zaškripa zubima  Šaćir , izlazeći iz crkve i otirući jednim ubrusom krvavu sablju.</s></p>
+<p><s>A tamo ukraj časne trpeze ležala je u epitrahilju lešina bez glave.</s></p>
+</div>
+</body>
