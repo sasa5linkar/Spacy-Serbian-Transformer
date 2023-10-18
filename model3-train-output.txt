@@ -1,0 +1,71 @@
+(spacy) D:\GitHub\Spacy-Serbian-Transformer>python -m spacy train config2.cfg --output ./model3
+✔ Created output directory: model3
+ℹ Saving to output directory: model3
+ℹ Using CPU
+
+=========================== Initializing pipeline ===========================
+[2023-10-17 13:36:17,640] [INFO] Set up nlp object from config
+[2023-10-17 13:36:17,647] [INFO] Pipeline: ['transformer', 'tagger', 'trainable_lemmatizer']
+[2023-10-17 13:36:17,650] [INFO] Created vocabulary
+[2023-10-17 13:36:17,650] [INFO] Finished initializing nlp object
+(…)cased/resolve/main/tokenizer_config.json: 100%|██████████████████████████████████████████| 28.0/28.0 [00:00<?, ?B/s]
+C:\Users\sasa5\anaconda3\envs\spacy\Lib\site-packages\huggingface_hub\file_download.py:138: UserWarning: `huggingface_hub` cache-system uses symlinks by default to efficiently store duplicated files but your machine does not support them in C:\Users\sasa5\.cache\huggingface\hub. Caching files will still work but in a degraded version that might require more space on your disk. This warning can be disabled by setting the `HF_HUB_DISABLE_SYMLINKS_WARNING` environment variable. For more details, see https://huggingface.co/docs/huggingface_hub/how-to-cache#limitations.
+To support symlinks on Windows, you either need to activate Developer Mode or to run Python as an administrator. In order to see activate developer mode, see this article: https://docs.microsoft.com/en-us/windows/apps/get-started/enable-your-device-for-development
+  warnings.warn(message)
+(…)lingual-uncased/resolve/main/config.json: 100%|████████████████████████████████████████████| 625/625 [00:00<?, ?B/s]
+(…)tilingual-uncased/resolve/main/vocab.txt: 100%|██████████████████████████████████| 872k/872k [00:00<00:00, 3.21MB/s]
+(…)gual-uncased/resolve/main/tokenizer.json: 100%|████████████████████████████████| 1.72M/1.72M [00:00<00:00, 4.97MB/s]
+pytorch_model.bin: 100%|████████████████████████████████████████████████████████████| 672M/672M [01:04<00:00, 10.4MB/s]
+Some weights of the model checkpoint at bert-base-multilingual-uncased were not used when initializing BertModel: ['cls.seq_relationship.bias', 'cls.predictions.bias', 'cls.predictions.transform.LayerNorm.weight', 'cls.predictions.transform.dense.weight', 'cls.seq_relationship.weight', 'cls.predictions.transform.dense.bias', 'cls.predictions.decoder.weight', 'cls.predictions.transform.LayerNorm.bias']
+- This IS expected if you are initializing BertModel from the checkpoint of a model trained on another task or with another architecture (e.g. initializing a BertForSequenceClassification model from a BertForPreTraining model).
+- This IS NOT expected if you are initializing BertModel from the checkpoint of a model that you expect to be exactly identical (initializing a BertForSequenceClassification model from a BertForSequenceClassification model).
+[2023-10-17 13:37:31,371] [INFO] Initialized pipeline components: ['transformer', 'tagger', 'trainable_lemmatizer']
+✔ Initialized pipeline
+
+============================= Training pipeline =============================
+ℹ Pipeline: ['transformer', 'tagger', 'trainable_lemmatizer']
+ℹ Initial learn rate: 0.0
+E    #       LOSS TRANS...  LOSS TAGGER  LOSS TRAIN...  TAG_ACC  LEMMA_ACC  SCORE
+---  ------  -------------  -----------  -------------  -------  ---------  ------
+  0       0           0.00      1164.38        1240.94    10.97      47.39    0.29
+  0     200        1009.02    220626.91      245147.02    32.95      47.36    0.40
+  1     400        5959.40    116229.97      180200.16    93.17      54.84    0.74
+  2     600        4053.62     23715.92      102927.72    97.54      78.90    0.88
+  4     800        4238.47      9663.07       56429.90    98.07      88.57    0.93
+  5    1000        4195.53      6863.53       34700.48    98.05      91.36    0.95
+  6    1200        3949.12      5454.21       25610.84    98.08      92.93    0.96
+  7    1400        3552.39      4405.59       20006.53    98.21      94.00    0.96
+  8    1600        3260.35      3719.76       16620.68    98.19      94.54    0.96
+  9    1800        2842.95      3084.54       13683.60    98.27      94.99    0.97
+ 10    2000        2619.00      2669.90       11890.08    98.21      95.31    0.97
+ 11    2200        2348.95      2294.33       10387.26    98.25      95.53    0.97
+ 12    2400        2010.62      1910.46        8725.01    98.19      95.70    0.97
+ 12    2600        1864.19      1681.11        8004.08    98.34      96.04    0.97
+ 13    2800        1633.32      1433.14        6715.52    98.25      96.15    0.97
+ 14    3000        1457.26      1248.98        6084.59    98.31      96.29    0.97
+ 15    3200        1238.97      1057.40        5193.85    98.27      96.44    0.97
+ 16    3400        1236.27       972.59        4861.01    98.33      96.52    0.97
+ 17    3600        1061.53       785.56        4115.91    98.31      96.64    0.97
+ 18    3800         936.09       675.93        3688.79    98.29      96.68    0.97
+ 19    4000         898.45       661.64        3105.36    98.21      96.71    0.97
+ 20    4200         834.51       579.22        2867.10    98.31      96.86    0.98
+ 21    4400         815.10       591.81        2546.53    98.29      96.90    0.98
+ 22    4600         794.85       606.39        2218.74    98.35      96.89    0.98
+ 23    4800         785.93       542.85        2070.89    98.29      96.97    0.98
+ 24    5000         756.15       523.56        1857.01    98.31      96.90    0.98
+ 25    5200         589.11       402.08        1628.51    98.35      96.99    0.98
+ 26    5400         647.43       431.88        1465.50    98.33      96.99    0.98
+ 27    5600         508.33       336.23        1283.19    98.38      97.00    0.98
+ 28    5800         546.65       400.34        1161.31    98.36      97.07    0.98
+ 29    6000         455.12       313.59        1013.76    98.39      97.06    0.98
+ 30    6200         456.38       268.85         958.99    98.36      97.06    0.98
+ 31    6400         476.15       288.87         832.39    98.40      97.08    0.98
+ 32    6600         434.20       249.65         746.76    98.41      97.08    0.98
+ 33    6800         479.55       286.97         747.41    98.36      97.06    0.98
+ 34    7000         412.35       241.12         633.42    98.37      97.11    0.98
+ 35    7200         406.42       220.24         597.51    98.30      97.09    0.98
+ 36    7400         368.89       211.20         516.44    98.31      97.08    0.98
+ 37    7600         362.33       230.18         449.33    98.30      97.09    0.98
+ 38    7800         410.08       238.20         468.05    98.34      97.06    0.98
+ 39    8000         346.99       195.86         388.58    98.35      97.13    0.98
+ 40    8200         334.00       197.13         354.83    98.34      97.12    0.98

@@ -17,6 +17,7 @@ def convert_to_spacy_format(file_path: str, output_file_path: str) -> None:
     lemmas = []
     header = lines[0].strip()  # Store the header
 
+    # Inside your loop over the lines of the file
     for line in lines[1:]:  # Skip the header
         line = line.strip()
         if line and line != header:  # If the line is not empty and not a header
@@ -25,7 +26,7 @@ def convert_to_spacy_format(file_path: str, output_file_path: str) -> None:
             if pos == 'SENT':  # If the current token is a sentence delimiter
                 # Add the current sentence to the DocBin (if it's not empty)
                 if sentence:
-                    doc = Doc(vocab, words=sentence, pos=ud_tags, lemmas=lemmas)
+                    doc = Doc(vocab, words=sentence, pos=ud_tags, tags=ud_tags, lemmas=lemmas)
                     doc_bin.add(doc)
                 # Start a new sentence
                 sentence = []
@@ -41,6 +42,12 @@ def convert_to_spacy_format(file_path: str, output_file_path: str) -> None:
     # Handle the last sentence if the file doesn't end with a sentence delimiter
     if sentence:
         doc = Doc(vocab, words=sentence, tags=pos_tags, lemmas=lemmas)
+        doc_bin.add(doc)
+
+
+    # Handle the last sentence if the file doesn't end with a sentence delimiter
+    if sentence:
+        doc = Doc(vocab, words=sentence, tags=ud_tags, lemmas=lemmas)
         doc_bin.add(doc)
 
     doc_bin.to_disk(output_file_path)
