@@ -29,3 +29,9 @@ model4/model-last/vocab/lookups.bin
 model4/model-last/vocab/strings.json
 model4/model-last/vocab/vectors
 model4/model-last/vocab/vectors.cfg
+bertovic-base2/config.json
+bertovic-base2/pytorch_model.bin
+bertovic-base2/tokenizer.json
+bertovic-base3/config.json
+bertovic-base3/pytorch_model.bin
+bertovic-base3/tokenizer.json
