@@ -79,7 +79,7 @@ def spacyDocfromFileTest(name):
         xml = textFile.read()
         soup = BeautifulSoup(xml, 'html.parser')
         text = soup.get_text()
-
+    assert(text == doc.text)
     # Loop over lines of the annotation file
     annFilename = os.path.join(NER_DIR, name + ".ann")
     with open(annFilename, "r", encoding='utf-8') as annFile:
