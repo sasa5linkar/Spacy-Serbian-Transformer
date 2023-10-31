@@ -39,10 +39,10 @@ def convert_to_spacy_format(file_path: str, output_file_path: str) -> None:
                 ud_tags.append(ud)
                 lemmas.append(lemma)
 
-    # Handle the last sentence if the file doesn't end with a sentence delimiter
-    if sentence:
-        doc = Doc(vocab, words=sentence, tags=pos_tags, lemmas=lemmas)
-        doc_bin.add(doc)
+    # # Handle the last sentence if the file doesn't end with a sentence delimiter
+    # if sentence:
+    #     doc = Doc(vocab, words=sentence, tags=pos_tags, lemmas=lemmas)
+    #     doc_bin.add(doc)
 
 
     # Handle the last sentence if the file doesn't end with a sentence delimiter

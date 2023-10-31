@@ -1,0 +1,73 @@
+(spacy) D:\GitHub\Spacy-Serbian-Transformer>python -m spacy train config3.cfg --output ./model4
+ℹ Saving to output directory: model4
+ℹ Using CPU
+
+=========================== Initializing pipeline ===========================
+[2023-10-31 13:42:46,985] [INFO] Set up nlp object from config
+[2023-10-31 13:42:47,002] [INFO] Pipeline: ['transformer', 'tagger', 'trainable_lemmatizer']
+[2023-10-31 13:42:47,002] [INFO] Created vocabulary
+[2023-10-31 13:42:47,002] [INFO] Finished initializing nlp object
+Some weights of the model checkpoint at classla/bcms-bertic were not used when initializing ElectraModel: ['discriminator_predictions.dense_prediction.bias', 'discriminator_predictions.dense.weight', 'discriminator_predictions.dense.bias', 'discriminator_predictions.dense_prediction.weight']
+- This IS expected if you are initializing ElectraModel from the checkpoint of a model trained on another task or with another architecture (e.g. initializing a BertForSequenceClassification model from a BertForPreTraining model).
+- This IS NOT expected if you are initializing ElectraModel from the checkpoint of a model that you expect to be exactly identical (initializing a BertForSequenceClassification model from a BertForSequenceClassification model).
+[2023-10-31 13:42:55,760] [INFO] Initialized pipeline components: ['transformer', 'tagger', 'trainable_lemmatizer']
+✔ Initialized pipeline
+
+============================= Training pipeline =============================
+ℹ Pipeline: ['transformer', 'tagger', 'trainable_lemmatizer']
+ℹ Initial learn rate: 0.0
+E    #       LOSS TRANS...  LOSS TAGGER  LOSS TRAIN...  TAG_ACC  LEMMA_ACC  SCORE
+---  ------  -------------  -----------  -------------  -------  ---------  ------
+  0       0           0.00      1164.38        1240.94    10.97      47.39    0.29
+  0     200        1774.39    223303.98      245677.33    27.25      47.37    0.37
+  1     400       13949.53    146035.48      207591.92    82.37      52.10    0.67
+  2     600       10301.07     45047.64      124255.73    96.12      63.17    0.80
+  4     800        7881.76     13296.97       83864.43    98.41      81.95    0.90
+  5    1000        7142.14      6402.90       49253.28    98.45      88.80    0.94
+  6    1200        6591.98      4759.40       32246.48    98.48      91.57    0.95
+  7    1400        5873.25      3836.35       24162.68    98.51      92.91    0.96
+  8    1600        5525.16      3302.97       19680.21    98.59      94.08    0.96
+  9    1800        4922.41      2868.28       16179.06    98.55      94.62    0.97
+ 10    2000        4339.15      2412.25       13902.04    98.57      94.99    0.97
+ 11    2200        3874.06      2086.07       12236.16    98.57      95.45    0.97
+ 12    2400        3384.82      1734.94       10435.77    98.56      95.66    0.97
+ 12    2600        3027.59      1480.01        9486.31    98.59      96.00    0.97
+ 13    2800        2497.99      1156.84        8094.29    98.59      96.25    0.97
+ 14    3000        2368.31      1078.56        7490.95    98.65      96.44    0.98
+ 15    3200        1966.18       863.26        6514.25    98.62      96.65    0.98
+ 16    3400        1881.94       837.53        5940.80    98.60      96.68    0.98
+ 17    3600        1536.17       595.37        5217.77    98.61      96.82    0.98
+ 18    3800        1453.10       557.50        4695.05    98.61      97.04    0.98
+ 19    4000        1198.63       475.50        4001.84    98.57      97.06    0.98
+ 20    4200        1044.14       385.34        3606.15    98.65      97.21    0.98
+ 21    4400        1022.81       372.30        3290.86    98.64      97.29    0.98
+ 22    4600         949.94       340.12        2941.02    98.64      97.40    0.98
+ 23    4800         904.50       302.27        2653.25    98.61      97.45    0.98
+ 24    5000         704.34       236.14        2307.47    98.61      97.48    0.98
+ 25    5200         725.90       255.70        2041.61    98.63      97.52    0.98
+ 26    5400         738.53       251.87        1823.34    98.63      97.56    0.98
+ 27    5600         621.14       192.22        1577.38    98.62      97.56    0.98
+ 28    5800         556.70       172.24        1388.37    98.63      97.61    0.98
+ 29    6000         528.05       171.73        1227.38    98.67      97.68    0.98
+ 30    6200         480.81       144.06        1102.75    98.63      97.69    0.98
+ 31    6400         541.37       164.58         950.07    98.66      97.72    0.98
+ 32    6600         473.38       149.15         828.71    98.71      97.72    0.98
+ 33    6800         510.41       152.75         775.22    98.65      97.71    0.98
+ 34    7000         453.96       143.93         640.94    98.68      97.76    0.98
+ 35    7200         319.78       110.32         521.60    98.66      97.79    0.98
+ 36    7400         356.91       113.05         448.90    98.64      97.77    0.98
+ 37    7600         370.36       122.83         402.34    98.65      97.77    0.98
+ 38    7800         368.85       103.53         367.14    98.64      97.78    0.98
+ 39    8000         340.67       103.54         301.31    98.65      97.76    0.98
+ 40    8200         294.31        78.49         258.52    98.66      97.78    0.98
+ 41    8400         373.63       112.59         246.84    98.69      97.86    0.98
+ 42    8600         320.99        89.29         219.15    98.67      97.80    0.98
+ 43    8800         213.54        77.41         154.71    98.69      97.82    0.98
+ 44    9000         275.82        78.39         159.75    98.66      97.80    0.98
+ 45    9200         285.45        76.68         139.41    98.69      97.86    0.98
+ 46    9400         232.75        73.60         110.55    98.68      97.83    0.98
+ 47    9600         309.02        73.61         138.17    98.69      97.83    0.98
+ 48    9800         197.58        54.94          99.37    98.70      97.84    0.98
+ 49   10000         236.19        62.60          92.12    98.69      97.83    0.98
+✔ Saved pipeline to output directory
+model4\model-last
