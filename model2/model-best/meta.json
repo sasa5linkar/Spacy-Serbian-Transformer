@@ -1,13 +1,13 @@
 {
   "lang":"sr",
-  "name":"pipeline",
-  "version":"0.0.0",
+  "name":"sr_base",
+  "version":"1.0.0",
   "spacy_version":">=3.6.0,<3.7.0",
   "description":"",
-  "author":"",
-  "email":"",
+  "author":"Petalinkar Saša",
+  "email":"sasa5linkar@gmail.com",
   "url":"",
-  "license":"",
+  "license":"CC BY-SA 3.0",
   "spacy_git_version":"6fc153a26",
   "vectors":{
     "width":0,

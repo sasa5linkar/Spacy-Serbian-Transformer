@@ -1,124 +1,103 @@
-# Conevert the NER data to the spacy format of the NER model
+# Conevert the BRAT NER data to the spacy bin format of the NER model
 
 import os
-from bs4 import BeautifulSoup
-from spacy.tokens import Doc, Span, DocBin
-from spacy.vocab import Vocab
+import re
+import spacy
+from spacy.tokens import DocBin
+from sklearn.model_selection import train_test_split
+
 
 ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
 CORPUS_DIR = os.path.join(ROOT_DIR, 'Corpus')
 NER_DIR = os.path.join(CORPUS_DIR, "SrpELTeC-gold")
 
+
+# Define a function to clean XML tags from the text
+def clean_xml_tags(text):
+    """
+    Remove XML tags from the given text.
+    """
+    clean_text = re.sub(r'<[^>]+>', '', text)  # Remove XML tags
+    return clean_text.strip()
+
+# Define the conversion function
+def ordered_search_based_brat_to_spacy(txt_path, ann_path):
+    """
+    Convert BRAT format annotations to SpaCy format by matching order of entities in .ann files with their order in cleaned .txt file.
+    """
+    with open(txt_path, 'r', encoding="utf-8") as f:
+        text = clean_xml_tags(f.read())
+    annotations = []
+    ann_entities = []
+    with open(ann_path, 'r', encoding="utf-8") as f:
+        for line in f:
+            parts = line.strip().split()
+            if parts[0].startswith("T"):
+                entity_text = ' '.join(parts[4:])
+                label = parts[1]
+                ann_entities.append((entity_text, label))
+    last_found_end = -1
+    for entity_text, label in ann_entities:
+        start = text.find(entity_text, last_found_end + 1)
+        if start != -1:
+            end = start + len(entity_text)
+            annotations.append((start, end, label))
+            last_found_end = end
+    return (text, {"entities": annotations})
+def create_docbin(data, nlp):
+    """
+    Convert data into SpaCy binary format using DocBin.
+    """
+    doc_bin = DocBin()
+    for text, annotations in data:
+        doc = nlp.make_doc(text)
+        ents = []
+        for start, end, label in annotations["entities"]:
+            span = doc.char_span(start, end, label=label)
+            if span:  # Ensure the span is valid
+                ents.append(span)
+        doc.ents = ents
+        doc_bin.add(doc)
+    return doc_bin
+
+
+# Path to the directory containing BRAT annotated files
+dir_path = NER_DIR
+
+# List all .txt files in the directory
+all_txt_files = [f for f in os.listdir(dir_path) if f.endswith('.txt')]
+
+# Convert the entire dataset using the order-based approach
+all_ordered_converted_data = {}
+for txt_file in all_txt_files:
+    ann_file = txt_file.replace(".txt", ".ann")
+    if ann_file in os.listdir(dir_path):
+        converted_data = ordered_search_based_brat_to_spacy(os.path.join(dir_path, txt_file), os.path.join(dir_path, ann_file))
+        all_ordered_converted_data[txt_file] = converted_data
+
+# Split the data into training and validation sets
+train_files, valid_files = train_test_split(list(all_ordered_converted_data.keys()), test_size=0.2, random_state=42)
+
+train_data = [all_ordered_converted_data[file] for file in train_files]
+valid_data = [all_ordered_converted_data[file] for file in valid_files]
+
+# Create DocBin objects for training and validation data
+nlp = spacy.blank("sr")
+
+train_doc_bin = create_docbin(train_data, nlp)
+valid_doc_bin = create_docbin(valid_data, nlp)
+
+# Save the binary files
+
 ouputName = "SrpELTeC-gold"
 
-outputFIlenameTrain = os.path.join(CORPUS_DIR, ouputName + "-train.spacy")
-outputFIlenameDev = os.path.join(CORPUS_DIR, ouputName + "-dev.spacy")
+train_bin_path = os.path.join(CORPUS_DIR, ouputName + "-train.spacy")
+valid_bin_path = os.path.join(CORPUS_DIR, ouputName + "-dev.spacy")
 
-def spacyDocfromFile(name):
-    """
-    Text example
-    <div type="chapter" xml:id="SRP18881_C1">
-    <p><s>Užurbala se cela kuća.</s></p>
-    <p><s>Jest, do duše, u rod će se, i to u rod, kao u svoju rođenu kuću.</s><s>Ali na selo!</s><s> Pa ostati na selu nekoliko nedelja, kao što namerava gospođa Nata, to je, kao što opet ropta njena kćerka, gospođica</s></p>
-    <p><s>Darinka, kad je u varoši „velika beseda“ rad prenosa kostiju Branka Radičevića, „toliko gladnih Misirskih godina“.</s></p>
-    <p><s>Pa onda ne može gospođa Nata, da ne ponese štogod sestrinoj deci.</s><s> To će da bude radost od dece, kad im tetka iz varoši razda poklone!</s></p>
-    <p><s>– Bože moj, seko. – reći će, do duše, kao i do sad, Kata Nati, – zar to mora biti?</s></p>
+train_doc_bin.to_disk(train_bin_path)
+valid_doc_bin.to_disk(valid_bin_path)
 
-    """
-    
-    textFilename = os.path.join(NER_DIR, name + ".txt")
-    
-    """
-    Annotation example
-    T1	ROLE 229 236	gospođa
-    T2	PERS 237 241	Nata
-    T3	ROLE 283 292	gospođica
-    T4	PERS 309 316	Darinka
-    """
-    annFilename = os.path.join(NER_DIR, name + ".ann")
-
-    vocab = Vocab()
-    entities = []
-
-    #open files and read lines
-    # Parse the XML file and extract the text
-    with open(textFilename, "r", encoding='utf-8') as textFile:
-        xml = textFile.read()
-        soup = BeautifulSoup(xml, 'html.parser')
-        text = soup.get_text()
-    words = text.split()
-    spaces = [True] * len(words)
-    doc = Doc(vocab, words=words, spaces=spaces)
-
-    # Loop over lines of the annotation file
-    with open(annFilename, "r", encoding='utf-8') as annFile:
-        annLines = annFile.readlines()
-        for line in annLines:
-            if line.startswith("T"):
-                parts = line.strip().split("\t")
-                label, start, end = parts[1].split()
-                start = int(start)
-                end = int(end)
-                entity_text = text[start:end]
-                entity_span = Span(doc, start, end, label=label)
-                entities.append(entity_span)
-
-    doc.ents = entities
-    return doc
-
-def spacyDocfromFileTest(name):
-    """This function test the spacyDocfromFile function
-    it creates Doc and then cheslk if the text is the same as the original text
-    and text in ann file matches entities in the doc
-    """
-    doc = spacyDocfromFile(name)
-    
-    # Parse the XML file and extract the text
-    textFilename = os.path.join(NER_DIR, name + ".txt")
-    with open(textFilename, "r", encoding='utf-8') as textFile:
-        xml = textFile.read()
-        soup = BeautifulSoup(xml, 'html.parser')
-        text = soup.get_text()
-    assert(text == doc.text)
-    # Loop over lines of the annotation file
-    annFilename = os.path.join(NER_DIR, name + ".ann")
-    with open(annFilename, "r", encoding='utf-8') as annFile:
-        annLines = annFile.readlines()
-        for line in annLines:
-            if line.startswith("T"):
-                parts = line.strip().split("\t")
-                label, start, end = parts[1].split()
-                start = int(start)
-                end = int(end)
-                entity_text = text[start:end]
-                entity_span = Span(doc, start, end, label=label)
-                assert entity_text == entity_span.text
-                assert entity_span.text == doc[start:end].text
+print(f"Training data saved to: {train_bin_path}")
+print(f"Validation data saved to: {valid_bin_path}")
 
 
-def folder2Spacy(folder):
-    """
-    folder - folder with text and annotation files
-    """
-    docs = DocBin()
-    for filename in os.listdir(folder):
-        if filename.endswith(".txt"):
-            print(os.path.join(folder, filename))
-            #check if there ann file
-            if os.path.isfile(os.path.join(folder, filename[:-4] + ".ann")):
-                docs.add(spacyDocfromFile(filename[:-4]))
-
-def testall():
-    """Test all files in NER_DIR, to se if they work with spacyDocfromFile"""
-    for filename in os.listdir(NER_DIR):
-        if filename.endswith(".txt"):
-            print(filename)
-        try:
-            spacyDocfromFileTest(filename[:-4])
-            print("ok")
-        except Exception as e:
-            print(f"Error processing {filename}: {e}")
-def main():
-    testall()
-if __name__ == "__main__":
-    main()
