@@ -1,0 +1,65 @@
+(spacy) D:\GitHub\Spacy-Serbian-Transformer>python -m spacy init fill-config ./base_config7.cfg ./config7.cfg
+✔ Auto-filled config with all values
+✔ Saved config
+config7.cfg
+You can now add your data and train your pipeline:
+python -m spacy train config7.cfg --paths.train ./train.spacy --paths.dev ./dev.spacy
+
+(spacy) D:\GitHub\Spacy-Serbian-Transformer> python -m spacy train config7.cfg --output ./model7
+✔ Created output directory: model7
+ℹ Saving to output directory: model7
+ℹ Using CPU
+
+=========================== Initializing pipeline ===========================
+[2023-11-03 09:39:36,143] [INFO] Set up nlp object from config
+[2023-11-03 09:39:36,143] [INFO] Pipeline: ['transformer', 'morphologizer', 'trainable_lemmatizer']
+[2023-11-03 09:39:36,158] [INFO] Created vocabulary
+[2023-11-03 09:39:36,158] [INFO] Finished initializing nlp object
+Some weights of the model checkpoint at bertovic-base2 were not used when initializing RobertaModel: ['lm_head.layer_norm.bias', 'lm_head.bias', 'lm_head.dense.bias', 'lm_head.dense.weight', 'lm_head.layer_norm.weight']
+- This IS expected if you are initializing RobertaModel from the checkpoint of a model trained on another task or with another architecture (e.g. initializing a BertForSequenceClassification model from a BertForPreTraining model).
+- This IS NOT expected if you are initializing RobertaModel from the checkpoint of a model that you expect to be exactly identical (initializing a BertForSequenceClassification model from a BertForSequenceClassification model).
+Some weights of RobertaModel were not initialized from the model checkpoint at bertovic-base2 and are newly initialized: ['roberta.pooler.dense.weight', 'roberta.pooler.dense.bias']
+You should probably TRAIN this model on a down-stream task to be able to use it for predictions and inference.
+[2023-11-03 09:39:42,111] [INFO] Initialized pipeline components: ['transformer', 'morphologizer', 'trainable_lemmatizer']
+✔ Initialized pipeline
+
+============================= Training pipeline =============================
+ℹ Pipeline: ['transformer', 'morphologizer',
+'trainable_lemmatizer']
+ℹ Set annotations on update for: ['morphologizer']
+ℹ Initial learn rate: 0.0
+E    #       LOSS TRANS...  LOSS MORPH...  LOSS TRAIN...  POS_ACC  MORPH_ACC  LEMMA_ACC  SCORE
+---  ------  -------------  -------------  -------------  -------  ---------  ---------  ------
+  0       0           0.00        1164.38        1240.94    27.25       0.00      47.39    0.31
+  0     200        1079.66      218589.86      243821.21    32.71       0.00      47.42    0.32
+  1     400        3839.20       86163.57      151356.70    95.28       0.00      63.43    0.56
+  2     600        2935.60       13914.77       72903.61    98.01       0.00      86.17    0.68
+  4     800        2686.64        6256.88       34934.01    98.28       0.00      91.74    0.70
+  5    1000        2415.74        4657.38       21965.43    98.33       0.00      93.82    0.71
+  6    1200        2011.07        3487.40       15551.55    98.25       0.00      94.60    0.72
+  7    1400        1588.96        2514.65       11600.33    98.45       0.00      95.37    0.72
+  8    1600        1340.83        1940.59        9103.83    98.37       0.00      95.81    0.72
+  9    1800        1111.63        1467.27        7243.88    98.42       0.00      96.16    0.73
+ 10    2000         952.49        1178.79        5933.82    98.44       0.00      96.39    0.73
+ 11    2200         813.16         981.27        4913.44    98.42       0.00      96.55    0.73
+ 12    2400         723.76         865.92        3798.88    98.44       0.00      96.65    0.73
+ 12    2600         612.18         673.04        3333.65    98.53       0.00      96.82    0.73
+ 13    2800         519.13         566.04        2549.25    98.48       0.00      97.07    0.73
+ 14    3000         495.97         512.07        2121.20    98.48       0.00      97.08    0.73
+ 15    3200         444.03         465.07        1674.20    98.51       0.00      97.19    0.73
+ 16    3400         437.28         435.93        1370.63    98.51       0.00      97.24    0.73
+ 17    3600         447.13         445.53        1113.95    98.52       0.00      97.16    0.73
+ 18    3800         347.27         341.90         857.04    98.48       0.00      97.23    0.73
+ 19    4000         373.59         385.43         678.58    98.48       0.00      97.24    0.73
+ 20    4200         339.42         365.82         543.12    98.51       0.00      97.22    0.73
+ 21    4400         317.13         330.02         530.45    98.55       0.00      97.29    0.73
+ 22    4600         321.86         300.57         461.85    98.54       0.00      97.26    0.73
+ 23    4800         383.35         317.43         398.49    98.51       0.00      97.28    0.73
+ 24    5000         343.94         285.31         328.39    98.48       0.00      97.23    0.73
+ 25    5200         280.28         271.62         331.16    98.51       0.00      97.27    0.73
+ 26    5400         255.78         240.60         283.03    98.51       0.00      97.27    0.73
+ 27    5600         264.50         249.07         238.21    98.52       0.00      97.28    0.73
+ 28    5800         266.54         258.99         207.72    98.49       0.00      97.30    0.73
+ 29    6000         251.70         246.04         201.33    98.52       0.00      97.29    0.73
+✔ Saved pipeline to output directory
+model7\model-last
