@@ -1,26 +1,13 @@
-(spacy) D:\GitHub\Spacy-Serbian-Transformer>python -m spacy init fill-config ./base_config7.cfg ./config7.cfg
-✔ Auto-filled config with all values
-✔ Saved config
-config7.cfg
-You can now add your data and train your pipeline:
-python -m spacy train config7.cfg --paths.train ./train.spacy --paths.dev ./dev.spacy
-
-(spacy) D:\GitHub\Spacy-Serbian-Transformer> python -m spacy train config7.cfg --output ./model7
-✔ Created output directory: model7
+(spacy) D:\GitHub\Spacy-Serbian-Transformer>python -m spacy train config7.cfg --output ./model7 --gpu-id 0
 ℹ Saving to output directory: model7
-ℹ Using CPU
+ℹ Using GPU: 0
 
 =========================== Initializing pipeline ===========================
-[2023-11-03 09:39:36,143] [INFO] Set up nlp object from config
-[2023-11-03 09:39:36,143] [INFO] Pipeline: ['transformer', 'morphologizer', 'trainable_lemmatizer']
-[2023-11-03 09:39:36,158] [INFO] Created vocabulary
-[2023-11-03 09:39:36,158] [INFO] Finished initializing nlp object
-Some weights of the model checkpoint at bertovic-base2 were not used when initializing RobertaModel: ['lm_head.layer_norm.bias', 'lm_head.bias', 'lm_head.dense.bias', 'lm_head.dense.weight', 'lm_head.layer_norm.weight']
+Some weights of the model checkpoint at bertovic-base2 were not used when initializing RobertaModel: ['lm_head.dense.bias', 'lm_head.layer_norm.bias', 'lm_head.layer_norm.weight', 'lm_head.dense.weight', 'lm_head.bias']
 - This IS expected if you are initializing RobertaModel from the checkpoint of a model trained on another task or with another architecture (e.g. initializing a BertForSequenceClassification model from a BertForPreTraining model).
 - This IS NOT expected if you are initializing RobertaModel from the checkpoint of a model that you expect to be exactly identical (initializing a BertForSequenceClassification model from a BertForSequenceClassification model).
-Some weights of RobertaModel were not initialized from the model checkpoint at bertovic-base2 and are newly initialized: ['roberta.pooler.dense.weight', 'roberta.pooler.dense.bias']
+Some weights of RobertaModel were not initialized from the model checkpoint at bertovic-base2 and are newly initialized: ['roberta.pooler.dense.bias', 'roberta.pooler.dense.weight']
 You should probably TRAIN this model on a down-stream task to be able to use it for predictions and inference.
-[2023-11-03 09:39:42,111] [INFO] Initialized pipeline components: ['transformer', 'morphologizer', 'trainable_lemmatizer']
 ✔ Initialized pipeline
 
 ============================= Training pipeline =============================
@@ -31,35 +18,88 @@ You should probably TRAIN this model on a down-stream task to be able to use it 
 E    #       LOSS TRANS...  LOSS MORPH...  LOSS TRAIN...  POS_ACC  MORPH_ACC  LEMMA_ACC  SCORE
 ---  ------  -------------  -------------  -------------  -------  ---------  ---------  ------
   0       0           0.00        1164.38        1240.94    27.25       0.00      47.39    0.31
-  0     200        1079.66      218589.86      243821.21    32.71       0.00      47.42    0.32
-  1     400        3839.20       86163.57      151356.70    95.28       0.00      63.43    0.56
-  2     600        2935.60       13914.77       72903.61    98.01       0.00      86.17    0.68
-  4     800        2686.64        6256.88       34934.01    98.28       0.00      91.74    0.70
-  5    1000        2415.74        4657.38       21965.43    98.33       0.00      93.82    0.71
-  6    1200        2011.07        3487.40       15551.55    98.25       0.00      94.60    0.72
-  7    1400        1588.96        2514.65       11600.33    98.45       0.00      95.37    0.72
-  8    1600        1340.83        1940.59        9103.83    98.37       0.00      95.81    0.72
-  9    1800        1111.63        1467.27        7243.88    98.42       0.00      96.16    0.73
- 10    2000         952.49        1178.79        5933.82    98.44       0.00      96.39    0.73
- 11    2200         813.16         981.27        4913.44    98.42       0.00      96.55    0.73
- 12    2400         723.76         865.92        3798.88    98.44       0.00      96.65    0.73
- 12    2600         612.18         673.04        3333.65    98.53       0.00      96.82    0.73
- 13    2800         519.13         566.04        2549.25    98.48       0.00      97.07    0.73
- 14    3000         495.97         512.07        2121.20    98.48       0.00      97.08    0.73
- 15    3200         444.03         465.07        1674.20    98.51       0.00      97.19    0.73
- 16    3400         437.28         435.93        1370.63    98.51       0.00      97.24    0.73
- 17    3600         447.13         445.53        1113.95    98.52       0.00      97.16    0.73
- 18    3800         347.27         341.90         857.04    98.48       0.00      97.23    0.73
- 19    4000         373.59         385.43         678.58    98.48       0.00      97.24    0.73
- 20    4200         339.42         365.82         543.12    98.51       0.00      97.22    0.73
- 21    4400         317.13         330.02         530.45    98.55       0.00      97.29    0.73
- 22    4600         321.86         300.57         461.85    98.54       0.00      97.26    0.73
- 23    4800         383.35         317.43         398.49    98.51       0.00      97.28    0.73
- 24    5000         343.94         285.31         328.39    98.48       0.00      97.23    0.73
- 25    5200         280.28         271.62         331.16    98.51       0.00      97.27    0.73
- 26    5400         255.78         240.60         283.03    98.51       0.00      97.27    0.73
- 27    5600         264.50         249.07         238.21    98.52       0.00      97.28    0.73
- 28    5800         266.54         258.99         207.72    98.49       0.00      97.30    0.73
- 29    6000         251.70         246.04         201.33    98.52       0.00      97.29    0.73
+  0     200        1090.08      218240.51      243827.79    38.28       0.00      49.58    0.34
+  1     400        3831.59       84221.26      151017.17    95.34       0.00      63.71    0.56
+  2     600        2916.86       13641.60       70937.06    98.03       0.00      86.44    0.68
+  4     800        2635.93        6090.52       34089.33    98.27       0.00      91.83    0.70
+  5    1000        2386.83        4561.41       21806.61    98.38       0.00      93.86    0.72
+  6    1200        2044.31        3521.60       15524.51    98.31       0.00      94.62    0.72
+  7    1400        1598.04        2522.71       11582.18    98.45       0.00      95.37    0.72
+  8    1600        1380.71        1994.62        9124.04    98.45       0.00      95.86    0.73
+  9    1800        1139.62        1518.33        7269.21    98.42       0.00      96.20    0.73
+ 10    2000         928.13        1154.75        5897.44    98.40       0.00      96.39    0.73
+ 11    2200         828.36         964.34        4901.94    98.47       0.00      96.54    0.73
+ 12    2400         678.75         762.76        3810.85    98.45       0.00      96.80    0.73
+ 12    2600         635.58         715.15        3263.72    98.50       0.00      96.94    0.73
+ 13    2800         526.61         552.39        2545.49    98.55       0.00      97.08    0.73
+ 14    3000         543.58         586.68        2129.50    98.51       0.00      97.13    0.73
+ 15    3200         450.39         460.71        1672.15    98.51       0.00      97.16    0.73
+ 16    3400         461.05         464.63        1367.59    98.54       0.00      97.22    0.73
+ 17    3600         392.34         399.05        1058.55    98.51       0.00      97.22    0.73
+ 18    3800         358.02         351.72         855.27    98.51       0.00      97.21    0.73
+ 19    4000         334.66         321.37         681.80    98.48       0.00      97.25    0.73
+ 20    4200         322.59         322.40         579.75    98.52       0.00      97.25    0.73
+ 21    4400         335.62         334.89         496.03    98.47       0.00      97.27    0.73
+ 22    4600         367.68         333.11         453.58    98.51       0.00      97.29    0.73
+ 23    4800         362.47         336.09         375.18    98.49       0.00      97.32    0.73
+ 24    5000         283.85         292.96         313.07    98.45       0.00      97.27    0.73
+ 25    5200         268.21         270.10         290.64    98.47       0.00      97.30    0.73
+ 26    5400         257.75         259.72         260.53    98.49       0.00      97.30    0.73
+ 27    5600         215.09         217.88         233.88    98.52       0.00      97.28    0.73
+ 28    5800         242.98         247.39         202.18    98.45       0.00      97.29    0.73
+ 29    6000         243.23         238.21         195.11    98.42       0.00      97.27    0.73
+ 30    6200         228.58         236.11         227.70    98.46       0.00      97.28    0.73
+ 31    6400         265.14         219.95         210.13    98.50       0.00      97.32    0.73
+ 32    6600         264.80         217.71         213.57    98.48       0.00      97.32    0.73
+ 33    6800         220.54         202.16         198.90    98.52       0.00      97.36    0.73
+ 34    7000         202.59         190.56         151.20    98.50       0.00      97.31    0.73
+ 35    7200         156.54         156.76         166.19    98.55       0.00      97.34    0.73
+ 36    7400         211.43         214.42         150.55    98.56       0.00      97.30    0.73
+ 37    7600         139.16         165.12         130.02    98.48       0.00      97.31    0.73
+ 38    7800         160.55         171.91         141.06    98.51       0.00      97.36    0.73
+ 39    8000         149.48         168.31         132.83    98.45       0.00      97.28    0.73
+ 40    8200         202.15         179.86         147.21    98.46       0.00      97.29    0.73
+ 41    8400         143.26         167.74         133.32    98.47       0.00      97.33    0.73
+ 42    8600         135.53         169.85         108.11    98.50       0.00      97.34    0.73
+ 43    8800         136.86         154.17         121.58    98.47       0.00      97.31    0.73
 ✔ Saved pipeline to output directory
 model7\model-last
+
+
+
+(spacy) D:\GitHub\Spacy-Serbian-Transformer>python -m spacy benchmark accuracy ./model7/model-best ./Corpus/sr_set-ud-test.spacy --output ./eval_results7.json --gpu-id 0
+ℹ Using GPU: 0
+
+================================== Results ==================================
+
+TOK     100.00
+POS     91.70
+MORPH   19.77
+LEMMA   87.25
+SPEED   3002
+
+
+============================== MORPH (per feat) ==============================
+
+                  P      R      F
+Case           0.00   0.00   0.00
+Gender         0.00   0.00   0.00
+Number         0.00   0.00   0.00
+Tense          0.00   0.00   0.00
+VerbForm       0.00   0.00   0.00
+Voice          0.00   0.00   0.00
+Animacy        0.00   0.00   0.00
+Definite       0.00   0.00   0.00
+Degree         0.00   0.00   0.00
+Mood           0.00   0.00   0.00
+Person         0.00   0.00   0.00
+PronType       0.00   0.00   0.00
+Polarity       0.00   0.00   0.00
+Poss           0.00   0.00   0.00
+Reflex         0.00   0.00   0.00
+Number[psor]   0.00   0.00   0.00
+NumType        0.00   0.00   0.00
+Foreign        0.00   0.00   0.00
+Gender[psor]   0.00   0.00   0.00
+
+✔ Saved results to eval_results7.json
