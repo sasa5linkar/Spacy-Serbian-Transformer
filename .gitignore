@@ -7,3 +7,14 @@ packages/
 model6/
 model7/
 model8/
+model9/
+model10/
+model11/
+Corpus/SrpKor4Tagging-train.spacy
+*.spacy
+Corpus/SrpELTeC-gold-dev.spacy
+Corpus/SrpELTeC-gold-train.spacy
+Corpus/SrpKor4Tagging-dev.spacy
+Corpus/SrpKor4Tagging-train.spacy
+Corpus/SrpKor4Tagging.spacy
+Corpus/SrpKor4Tagging-train.spacy
