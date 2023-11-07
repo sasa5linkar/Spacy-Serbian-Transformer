@@ -5,37 +5,59 @@ import os
 
 CORPUS_PATH = os.path.join("", "Corpus")
 
-# Define the split_data function
-def split_data(data, split_ratio=0.8):
+def split_data(data, train_ratio=0.7, dev_ratio=0.15):
+    """
+    This function splits the data into training, development, and test sets.
+    """
     random.shuffle(data)
-    split_point = int(len(data) * split_ratio)
-    return data[:split_point], data[split_point:]
+    train_point = int(len(data) * train_ratio)
+    dev_point = int(len(data) * (train_ratio + dev_ratio))
+    return data[:train_point], data[train_point:dev_point], data[dev_point:]
 
-# Load the original data
-name = "SrpKor4Tagging"
-origin_path = os.path.join(CORPUS_PATH, f"{name}.spacy")
-doc_bin = DocBin().from_disk(origin_path)
-data = list(doc_bin.get_docs(Vocab()))
+def save_data(data, path):
+    """
+    This function saves the data to a .spacy file at the provided path.
+    """
+    DocBin(docs=data).to_disk(path)
 
-# Split the data into training and development sets
-train_data, dev_data = split_data(data)
-train_path = os.path.join(CORPUS_PATH, f"{name}-train.spacy")
-dev_path = os.path.join(CORPUS_PATH, f"{name}-dev.spacy")
-# Save the training and development data as separate .spacy files
-DocBin(docs=train_data).to_disk(train_path)
-DocBin(docs=dev_data).to_disk(dev_path)
+def load_and_preview_data(path):
+    """
+    This function loads the data from a .spacy file and returns a preview of the first document.
+    """
+    doc_bin = DocBin().from_disk(path)
+    docs = list(doc_bin.get_docs(Vocab()))
+    preview = " ".join([token.text for token in docs[0]])
+    return preview
 
-# Load the .spacy files to verify that they were saved correctly
-train_bin = DocBin().from_disk(train_path)
-dev_bin = DocBin().from_disk(dev_path)
+def main(name):
+    """
+    This function loads the original data, splits it into training, development, and test sets,
+    saves each set as a separate .spacy file, and prints a preview of the first document in each set.
+    """
+    # Load the original data
+    origin_path = os.path.join(CORPUS_PATH, f"{name}.spacy")
+    doc_bin = DocBin().from_disk(origin_path)
+    data = list(doc_bin.get_docs(Vocab()))
 
-train_docs = list(train_bin.get_docs(Vocab()))
-dev_docs = list(dev_bin.get_docs(Vocab()))
+    # Split the data into training, development, and test sets
+    train_data, dev_data, test_data = split_data(data)
 
-# Check the first few words of the first document in each set
-train_preview = " ".join([token.text for token in train_docs[0]])
-dev_preview = " ".join([token.text for token in dev_docs[0]])
+    # Save the training, development, and test data as separate .spacy files
+    train_path = os.path.join(CORPUS_PATH, f"{name}-train.spacy")
+    dev_path = os.path.join(CORPUS_PATH, f"{name}-dev.spacy")
+    test_path = os.path.join(CORPUS_PATH, f"{name}-test.spacy")
+    save_data(train_data, train_path)
+    save_data(dev_data, dev_path)
+    save_data(test_data, test_path)
 
-train_preview, dev_preview
+    # Load the .spacy files and print a preview of the first document in each set
+    train_preview = load_and_preview_data(train_path)
+    dev_preview = load_and_preview_data(dev_path)
+    test_preview = load_and_preview_data(test_path)
+    print(f"Train preview: {train_preview}")
+    print(f"Dev preview: {dev_preview}")
+    print(f"Test preview: {test_preview}")
 
+if __name__ == "__main__":
+    main("SrpKor4Tagging")
 

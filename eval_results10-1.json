@@ -1,0 +1,21 @@
+{
+  "token_acc":null,
+  "token_p":null,
+  "token_r":null,
+  "token_f":null,
+  "pos_acc":0.8985401348,
+  "morph_acc":null,
+  "morph_micro_p":null,
+  "morph_micro_r":null,
+  "morph_micro_f":null,
+  "morph_per_feat":null,
+  "tag_acc":0.0003699344,
+  "lemma_acc":0.8211412935,
+  "sents_p":1.0,
+  "sents_r":1.0,
+  "sents_f":1.0,
+  "dep_uas":null,
+  "dep_las":null,
+  "dep_las_per_type":null,
+  "speed":4655.6782639003
+}
