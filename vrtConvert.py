@@ -35,13 +35,11 @@ def convert_to_spacy_format(file_path: str, output_file_path: str = None) -> Non
     doc_bin = DocBin()
 
     # Initialize lists to store sentences, pos tags, ud tags and lemmas
-    sentences = []
+
     pos_tags = []
     ud_tags = []
     lemmas = []
     sentence = []
-    pos_tag = []
-    ud_tag = []
     lemma = []
 
     # Get the header from the first line
@@ -53,23 +51,15 @@ def convert_to_spacy_format(file_path: str, output_file_path: str = None) -> Non
     # Loop through the lines
     for line in lines[1:]:
         line = line.strip()
-        if line and line != header:
+        if line and line != header:  # If the line is not empty and not a header
             parts = line.split("\t")
-            token, ud, pos, lemma = parts[:4]
-
-            # If the pos tag is 'SENT', it indicates the end of a sentence
-            if pos == 'SENT':
-                sentences.append((sentence_counter, sentence, ud_tags, ud_tags, lemmas))
-                sentence_counter += 1
-                # If 10 sentences have been processed, create a Doc and add it to the DocBin
-                if sentence_counter == 10:
-                    doc = Doc(vocab, words=[word for _, sentence, _, _, _ in sentences for word in sentence],
-                            pos=[pos for _, _, _, pos, _ in sentences for pos in pos],
-                            tags=[tag for _, _, _, tag, _ in sentences for tag in tag],
-                            lemmas=[lemma for _, _, _, _, lemma in sentences for lemma in lemma])
+            token, ud, pos, lemma = parts[:4]  # Select only the first four values
+            if pos == 'SENT':  # If the current token is a sentence delimiter
+                # Add the current sentence to the DocBin (if it's not empty)
+                if sentence:
+                    sent_starts = [True] + [False] * (len(sentence) - 1)
+                    doc = Doc(vocab, words=sentence, pos=ud_tags, tags=ud_tags, lemmas=lemmas, sent_starts=sent_starts)
                     doc_bin.add(doc)
-                    sentences = []
-                    sentence_counter = 0
                 sentence = []
                 pos_tags = []
                 ud_tags = []
@@ -80,16 +70,58 @@ def convert_to_spacy_format(file_path: str, output_file_path: str = None) -> Non
                 ud_tags.append(ud)
                 lemmas.append(lemma)
 
-        # If there are any remaining sentences, create a Doc and add it to the DocBin
-        if sentences:
-            doc = Doc(vocab, words=[word for _, sentence, _, _, _ in sentences for word in sentence],
-                    pos=[pos for _, _, _, pos, _ in sentences for pos in pos],
-                    tags=[tag for _, _, _, tag, _ in sentences for tag in tag],
-                    lemmas=[lemma for _, _, _, _, lemma in sentences for lemma in lemma])
-            doc_bin.add(doc)
+    # # Handle the last sentence if the file doesn't end with a sentence delimiter
+    # if sentence:
+    #     doc = Doc(vocab, words=sentence, tags=pos_tags, lemmas=lemmas)
+    #     doc_bin.add(doc)
 
-    # Save the DocBin to disk
-    doc_bin.to_disk(output_file_path)
+
+    # Handle the last sentence if the file doesn't end with a sentence delimiter
+    if sentence:
+        sent_starts = [True] + [False] * (len(sentence) - 1)
+        doc = Doc(vocab, words=sentence, pos=ud_tags, tags=ud_tags, lemmas=lemmas, sent_starts=sent_starts)
+        doc_bin.add(doc)
+
+
+    # Initialize a new DocBin to hold the concatenated documents
+    new_doc_bin = DocBin()
+
+    # Initialize an empty list to hold the group of documents
+    group = []
+
+    # Initialize a counter to keep track of the number of documents
+    counter = 0
+
+    # Iterate over the documents in the DocBin
+    for doc in doc_bin.get_docs(vocab):
+        # Add the document to the group
+        group.append(doc)
+        
+        # Increment the counter
+        counter += 1
+        
+        # If the counter reaches 10, concatenate the documents and add to the new DocBin
+        if counter == 10:
+            # Concatenate the documents in the group
+            concatenated = Doc.from_docs(group)
+            
+            # Add the concatenated document to the new DocBin
+            new_doc_bin.add(concatenated)
+            
+            # Reset the group and counter
+            group = []
+            counter = 0
+
+    # Handle any remaining documents
+    if counter > 0:
+        # Concatenate the remaining documents in the group
+        concatenated = Doc.from_docs(group)
+        
+        # Add the concatenated document to the new DocBin
+        new_doc_bin.add(concatenated)
+
+    # Save the new DocBin to disk
+    new_doc_bin.to_disk(output_file_path)
 
 # Main function to parse command line arguments and call the conversion function
 if __name__ == "__main__":

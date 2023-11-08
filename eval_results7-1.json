@@ -1,0 +1,17 @@
+{
+  "token_acc":1.0,
+  "token_p":0.9951072944,
+  "token_r":0.9975781011,
+  "token_f":0.9963411659,
+  "pos_acc":0.9822122723,
+  "morph_acc":null,
+  "morph_micro_p":null,
+  "morph_micro_r":null,
+  "morph_micro_f":null,
+  "morph_per_feat":null,
+  "lemma_acc":0.9664606879,
+  "sents_p":0.9010570825,
+  "sents_r":0.9029661017,
+  "sents_f":0.902010582,
+  "speed":7347.0708259119
+}

@@ -20,12 +20,12 @@ def save_data(data, path):
     """
     DocBin(docs=data).to_disk(path)
 
-def load_and_preview_data(path):
+def load_and_preview_data(path, vocab=Vocab()):
     """
     This function loads the data from a .spacy file and returns a preview of the first document.
     """
     doc_bin = DocBin().from_disk(path)
-    docs = list(doc_bin.get_docs(Vocab()))
+    docs = list(doc_bin.get_docs(vocab))
     preview = " ".join([token.text for token in docs[0]])
     return preview
 
@@ -37,7 +37,11 @@ def main(name):
     # Load the original data
     origin_path = os.path.join(CORPUS_PATH, f"{name}.spacy")
     doc_bin = DocBin().from_disk(origin_path)
-    data = list(doc_bin.get_docs(Vocab()))
+    # Create a Vocab instance
+    vocab = Vocab()
+
+    # Use the same Vocab instance to get docs
+    data = list(doc_bin.get_docs(vocab))
 
     # Split the data into training, development, and test sets
     train_data, dev_data, test_data = split_data(data)
