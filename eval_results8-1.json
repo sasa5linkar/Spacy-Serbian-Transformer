@@ -1,0 +1,21 @@
+{
+  "token_acc":1.0,
+  "token_p":0.9951072944,
+  "token_r":0.9975781011,
+  "token_f":0.9963411659,
+  "pos_acc":0.9822122723,
+  "morph_acc":null,
+  "morph_micro_p":null,
+  "morph_micro_r":null,
+  "morph_micro_f":null,
+  "morph_per_feat":null,
+  "lemma_acc":0.9664606879,
+  "tag_acc":0.000630857,
+  "sents_p":0.4717999019,
+  "sents_r":0.4076271186,
+  "sents_f":0.43737213,
+  "dep_uas":null,
+  "dep_las":null,
+  "dep_las_per_type":null,
+  "speed":2875.8482692727
+}
