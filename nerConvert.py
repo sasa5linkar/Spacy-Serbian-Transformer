@@ -82,7 +82,7 @@ def main():
     all_data = [all_ordered_converted_data[file] for file in all_txt_files]
 
     # Create a blank Serbian model
-    nlp = spacy.load(os.path.join(ROOT_DIR, "model10", "model-best"))
+    nlp = spacy.load(os.path.join(ROOT_DIR, "model5", "model-best"))
 
     all_doc_bin = create_docbin(all_data, nlp)
 

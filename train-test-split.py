@@ -63,5 +63,5 @@ def main(name):
     print(f"Test preview: {test_preview}")
 
 if __name__ == "__main__":
-    main("SrpKor4Tagging")
+    main("SrpELTeC-gold")
 
